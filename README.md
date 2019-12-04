@@ -1,6 +1,6 @@
-# Understand your code with Machine Learning
+# Machine Learning for Software Engineering: modelling the source code
 
-Workshop given at [DevFest Nantes 2019](https://devfest.gdgnantes.com/sessions/understand_your_code_with_machine_learning_on_source_code/).
+Workshop given at [Applied Machine Learning Days](https://appliedmldays.org/workshops/machine-learning-for-software-engineering-modelling-the-source-code), EPFL, Lausanne, January 26.
 
 Slides: on [gDrive](https://docs.google.com/presentation/d/1vF0JMagmXXzn-h-OaJu6CsDt78oSQSg58YFJsBUaHxk/edit)
 

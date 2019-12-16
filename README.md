@@ -9,19 +9,19 @@ OSS tools covered:
 - [gitbase](https://docs.sourced.tech/gitbase)
 - [bblfsh](https://doc.bblf.sh)
 - [BigARTM](http://bigartm.org)
-- [PyTourch](https://pytorch.org)
+- [PyTorch](https://pytorch.org)
 
  <details>
 <summary>Abstract</summary>
 
-> Machine Learning on Source Code (MLonCode) is an emerging research domain which stands at the > intersection of deep learning, natural language processing, software engineering and programming > language communities.
+> Machine Learning on Source Code (MLonCode) is an emerging research domain which stands at the intersection of deep learning, natural language processing, software engineering and programming language communities.
 >
-> During this 3.5 hours workshop, we will review the recent SE tasks that benefit from applying ML and focus the hands-on experience on:
-> - extracting data from the real source code and
-> - developing multiple different ML models
+> During this 3h30 workshop, we will review recent Software Engineering tasks that benefit from applying Machine Learning, with a focus on hands-on experience on:
+> - extracting data from real source code
+> - developing multiple Machine Learning models
 > - for a particular task of source code summarization (or function name suggestion).
 >
-> At the end of the workshop participants will build 2 working models on a real dataset, producing > near state-of-the-art results. Practical skill of extracting information from source code as well > as modeling different aspects of it are going to be acquired.
+> At the end of the workshop participants will build 2 working models on a real dataset, producing near state-of-the-art results. Practical skill of extracting information from source code as well as modelling different aspects of it are going to be acquired.
 >
 > Prerequisites: familiarity with the basics of DeepLearning, a laptop with Docker installed
 

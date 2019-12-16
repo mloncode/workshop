@@ -63,7 +63,7 @@ SUPPORTED_LANGUAGES = [
 def query_gitbase(sql: str) -> Iterator[Dict[str, Any]]:
     try:
         connection = pymysql_connect(
-            host="devfest_gitbase",
+            host="amld_gitbase",
             port=3306,
             user="root",
             password="",

@@ -9,31 +9,25 @@ OSS tools covered:
 - [gitbase](https://docs.sourced.tech/gitbase)
 - [bblfsh](https://doc.bblf.sh)
 - [BigARTM](http://bigartm.org)
-- [OpenNMT](http://opennmt.net)
+- [PyTorch](https://pytorch.org)
 
  <details>
 <summary>Abstract</summary>
 
-> Machine Learning on Source Code (MLonCode) is an emerging and exciting research domain which stands at the sweet spot between deep learning, natural language processing, social science, and programming.
+> Machine Learning on Source Code (MLonCode) is an emerging research domain which stands at the intersection of deep learning, natural language processing, software engineering and programming language communities.
 >
-> During this 2 hours workshop, we are going to show you how to extract insights from code bases—step by step—by shedding light on those crucial aspects:
+> During this 3h30 workshop, we will review recent Software Engineering tasks that benefit from applying Machine Learning, with a focus on hands-on experience on:
+> - extracting data from real source code
+> - developing multiple Machine Learning models
+> - for a particular task of source code summarization (or function name suggestion).
 >
-> - What information is available in your code
-> - How to extract this information
-> - What can you do with this knowledge: what are the tasks solvable by MLonCode
-> - Which models can be used to solve them
+> At the end of the workshop participants will build 2 working models on a real dataset, producing near state-of-the-art results. Practical skill of extracting information from source code as well as modelling different aspects of it are going to be acquired.
 >
-> To get our hands dirty, we will solve several example tasks, using source{d}, an open source stack to gain insights from codebases:
->
-> - Suggest function names automatically
-> - Cluster developers
-> - Search projects by similarity
->
-> Prerequisites: a laptop with Docker installed. We will provide an image to all participants.
+> Prerequisites: familiarity with the basics of DeepLearning, a laptop with Docker installed
 
 </details>
 
-Slides: on [gDrive](https://docs.google.com/presentation/d/1vF0JMagmXXzn-h-OaJu6CsDt78oSQSg58YFJsBUaHxk/edit#slide=id.g4f0d75b8b4_0_0)
+Slides: on [gDrive](#TBD)
 
 ## Prerequisites
 
@@ -57,7 +51,7 @@ Run bblfsh
 docker run \
     --detach \
     --rm \
-    --name devfest_bblfshd \
+    --name amld_bblfshd \
     --privileged \
     --publish 9432:9432 \
     bblfsh/bblfshd:v2.15.0-drivers \
@@ -70,10 +64,10 @@ Run gitbase
 docker run \
     --detach \
     --rm \
-    --name devfest_gitbase \
+    --name amld_gitbase \
     --publish 3306:3306 \
-    --link devfest_bblfshd:devfest_bblfshd \
-    --env BBLFSH_ENDPOINT=devfest_bblfshd:9432 \
+    --link amld_bblfshd:amld_bblfshd \
+    --env BBLFSH_ENDPOINT=amld_bblfshd:9432 \
     --env MAX_MEMORY=1024 \
     --volume $(pwd)/repos/git-data:/opt/repos \
     srcd/gitbase:v0.24.0-rc2
@@ -84,13 +78,13 @@ Run the jupyter image
 ```shell
 docker run \
     --rm \
-    --name devfest_jupyter \
+    --name amld_jupyter \
     --publish 8888:8888 \
-    --link devfest_bblfshd:devfest_bblfshd \
-    --link devfest_gitbase:devfest_gitbase \
-    --volume $(pwd)/notebooks:/devfest/notebooks \
-    --volume $(pwd)/repos:/devfest/repos \
-    mloncode/devfest
+    --link amld_bblfshd:amld_bblfshd \
+    --link amld_gitbase:amld_gitbase \
+    --volume $(pwd)/notebooks:/amld/notebooks \
+    --volume $(pwd)/repos:/amld/repos \
+    mloncode/amld
 ```
 
 <details>
@@ -116,16 +110,16 @@ make
 
 We are going to use top 50 repositories from [Apache Software Foundation](https://www.apache.org) though this workshop.
 
-[Notebook 1: data collection pipeline](http://127.0.0.1:8888/notebooks/Download%20repositories.ipynb)
+[Notebook 1: data collection pipeline](http://127.0.0.1:8888/notebooks/Download%20repositories.ipynb) ([example](notebooks/Download%20repositories.ipynb))
 
 ### 2. Project and Developer Similarities
 
 Build a vector model for projects and developers using [Topic Modelling](https://en.wikipedia.org/wiki/Topic_model) of code identifiers.
 
-[Notebook 2: project and developer similarities](http://127.0.0.1:8888/notebooks/Project%20and%20Developer%20Similarity.ipynb)
+[Notebook 2: project and developer similarities](http://127.0.0.1:8888/notebooks/Project%20and%20Developer%20Similarity.ipynb) ([example](notebooks/Project%20and%20Developer%20Similarity.ipynb))
 
 ### 3. Function Name Suggestion
 
 Train a NMT [seq2seq model](https://towardsdatascience.com/nlp-sequence-to-sequence-networks-part-2-seq2seq-model-encoderdecoder-model-6c22e29fd7e1) for predicting method names based on identifiers in method bodies.
 
-[Notebook 2: function name suggestion](http://127.0.0.1:8888/notebooks/Name%20suggestion.ipynb)
+[Notebook 2: function name suggestion](http://127.0.0.1:8888/notebooks/Name%20suggestion.ipynb) ([example](notebooks/Name%20suggestion.ipynb))

@@ -1,0 +1,10 @@
+[flake8]
+ignore=B008,E121,E123,E126,E203,E226,E24,E704,W503,W504,D100,D105,D200,D202,D301,D402,D
+max-line-length=88
+exclude=
+    .git
+import-order-style=appnexus
+application-package-names=data_generators
+per-file-ignores=
+    **/tests/*:D
+    **/test*.py:D

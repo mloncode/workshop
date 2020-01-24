@@ -1,16 +1,17 @@
-from argparse import ArgumentParser
+from argparse import ArgumentParser, Namespace
 import logging
 from pathlib import Path
 from time import time
-from typing import List
+from typing import List, Tuple
 
 import pandas as pd
+from torch.utils.data import Dataset
 
 
 logging.basicConfig(level=logging.INFO)
 
 
-class CodeSearchNetRAM(object):
+class CodeSearchNetRAM(Dataset):
     """Stores one split of CodeSearchNet data in memory
 
     Usage example:
@@ -50,7 +51,7 @@ class CodeSearchNetRAM(object):
             sort=False,
         )
 
-    def __getitem__(self, idx: int):
+    def __getitem__(self, idx: int) -> Tuple[str, str]:
         row = self.pd.iloc[idx]
 
         # drop class name
@@ -65,11 +66,11 @@ class CodeSearchNetRAM(object):
         # fn_body_enc = self.enc.encode(fn_body)
         return (fn_name, fn_body)
 
-    def __len__(self):
+    def __len__(self) -> int:
         return len(self.pd)
 
 
-def main(args):
+def main(args: Namespace) -> None:
     dataset = CodeSearchNetRAM(Path(args.data_dir), args.newline)
     split_name = Path(args.data_dir).name
     with open(args.src_file % split_name, mode="w", encoding="utf8") as s, open(

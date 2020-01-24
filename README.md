@@ -2,7 +2,7 @@
 
 Workshop given at [Applied Machine Learning Days](https://appliedmldays.org/workshops/machine-learning-for-software-engineering-modelling-the-source-code), EPFL, Lausanne, January 26.
 
-Slides: on [gDrive](https://docs.google.com/presentation/d/1vF0JMagmXXzn-h-OaJu6CsDt78oSQSg58YFJsBUaHxk/edit)
+Slides are [online](https://mlonco.de/amld2020-workshop/).
 
 OSS tools covered:
 

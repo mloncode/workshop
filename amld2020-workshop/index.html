@@ -651,7 +651,7 @@
     </section>
 
     <section class="slide " id="dev_token2">
-        <p>Result after multiplication</p>
+        <p>Result of multiplication</p>
         <table style="width:100%">
             <tr>
                 <th>Dev\Token</th>
@@ -730,6 +730,147 @@
             </tr>
         </table>
 
+    </section>
+
+    <section class="slide">
+        <h2 class="shout">Name suggestion</h2>
+    </section>
+
+    <section class="slide">
+        <h2>Pipeline</h2>
+        <ol>
+            <li>Clone the organization.</li>
+            <li>Classify and parse source code.</li>
+            <li>Extract functions - names and bodies.</li>
+            <li>Prepare X (body identifiers) & y (function name).</li>
+            <li>Byte pair encoding.</li>
+            <li>seq2seq.</li>
+        </ol>
+    </section>
+
+    <section class="slide">
+
+        <style>
+            .hl-keyword {
+                color: #cc8242;
+                font-weight: bold;
+            }
+            .hl-def {
+                color: #ffc66d;
+            }
+            .hl-reserved {
+                color: #94558D;
+            }
+            .hl-string {
+                color: #6a8759;
+            }
+            .hl-comment {
+                color: #707070;
+            }
+            .box {
+                border: 1px solid white;
+                padding: 0.05em 0.1em;
+            }
+        </style>
+
+        <h2>Input</h2>
+        <div id="input">
+		<pre>
+            <code class="python"><span class="hl-keyword">def</span> <span class="hl-def">nearest_neighbors</span>(<span class="hl-reserved">self</span>, origin, k=<span class="hl-literal">10</span>,</code>
+            <code class="python">                      skipped_stop=<span class="hl-literal">0.99</span>, throw=<span class="hl-keyword">True</span>):</code>
+<code class="python">    <span class="hl-comment"># origin can be either a text query or an id</span></code>
+<code class="python">    <span class="hl-keyword">if</span> <span class="hl-reserved">isinstance</span>(origin, (<span class="hl-reserved">tuple</span>, <span class="hl-reserved">list</span>):</code>
+<code class="python">	     words, weights = origin</code>
+<code class="python">	     weights = numpy.array(weights, dtype=numpy.float32)</code>
+            <code class="python">	     index = <span class="hl-keyword">None</span></code>
+<code class="python">	     avg = <span class="hl-reserved">self</span>._get_centroid(words, weights, force=<span class="hl-keyword">True</span>)</code>
+<code class="python">    <span class="hl-keyword">else:</span></code>
+<code class="python">	     index = origin</code>
+<code class="python">	     words, weights = <span class="hl-reserved">self</span>._get_vocabulary(index)</code>
+<code class="python">	     avg = <span class="hl-reserved">self</span>._get_centroid_by_index(index)</code>
+            <code class="python">    <span class="hl-keyword">if</span> avg <span class="hl-keyword">is None</span>:</code>
+<code class="python">	     <span class="hl-keyword">raise</span> ValueError(</code>
+<code class="python">		     "Too little vocabulary for %s: %d" % (index, len(words)))</code>
+		</pre>
+            <div><pre>
+				<code class="inline-no-offset"><span class="hl-keyword">⬤</span> keywords</code>
+				<code class="inline-no-offset"><span class="hl-title">⬤</span> identifiers</code>
+				<code class="inline-no-offset"><span class="hl-literal">⬤</span> literals</code>
+				<code class="inline-no-offset"><span class="hl-string">⬤</span> strings</code>
+				<code class="inline-no-offset"><span class="hl-comment">⬤</span> comments</code>
+                <code class="inline-no-offset"><span class="hl-reserved">⬤</span> reserved</code>
+			</pre></div>
+        </div>
+        <style>
+            #input {
+                display: flex;
+            }
+            #input > pre {
+                font-size: 0.5em;
+                margin-right: 100px;
+            }
+            #input > div > pre {
+                border: 1px solid white;
+                border-radius: 5px;
+                padding-top: 10px;
+                padding-bottom: 10px;
+            }
+            #input > div > pre > code {
+                padding: 0 20px !important;
+            }
+        </style>
+    </section>
+
+    <section class="slide " id="seq2seq_input">
+        <p>X & y</p>
+        <table style="width:100%">
+            <tr>
+                <th>X</th>
+                <th>y</th>
+
+            </tr>
+            <tr>
+                <td>origin</td>
+                <td>nearest_neighbors</td>
+
+            </tr>
+            <tr>
+                <td>k</td>
+
+            </tr>
+
+            <tr>
+                <td>skipped_stop</td>
+
+            </tr>
+            <tr>
+                <td>throw</td>
+
+            </tr>
+            <tr>
+                <td>origin</td>
+
+            </tr>
+            <tr>
+                <td>...</td>
+
+            </tr>
+        </table>
+
+    </section>
+
+    <section class="slide vista black" id="seq2seq">
+        <style>
+            #seq2seq {
+                background-color: rgba(0, 0, 0, 1) !important;
+                /*background-origin: content-box;*/
+                background: url("pictures/seq2seq.gif");
+            }
+            #seq2seq > h2 {
+                position: absolute;
+                bottom: 50px;
+            }
+        </style>
     </section>
     
 

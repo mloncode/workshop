@@ -581,6 +581,156 @@
         </video>
 
     </section>
+
+
+    <section class="slide">
+        <h2 class="shout">Developer/project similarity</h2>
+    </section>
+
+    <section class="slide">
+        <h2>Pipeline</h2>
+        <ol>
+            <li>Clone the organization.</li>
+            <li>Classify and parse source code.</li>
+            <li>Extract identifiers per file.</li>
+            <li>Extract experience per developer - languages, files, etc.</li>
+            <li>Topic modeling.</li>
+            <li>Usage: KD-tree, clustering and so on.</li>
+        </ol>
+    </section>
+
+    <section class="slide " id="dev_token">
+        <p>From git history</p>
+        <table style="width:100%">
+            <tr>
+                <th>Dev\Files</th>
+                <th>File 1</th>
+                <th>File 2</th>
+                <th>File 3</th>
+            </tr>
+            <tr>
+                <td>Dev 1</td>
+                <td>0</td>
+                <td>0.1</td>
+                <td>0.8</td>
+            </tr>
+            <tr>
+                <td>Dev 2</td>
+                <td>0.4</td>
+                <td>0.1</td>
+                <td>0.5</td>
+            </tr>
+        </table>
+        <p>From head revision</p>
+        <table style="width:100%">
+            <tr>
+                <th>Files\Tokens</th>
+                <th>Token 1</th>
+                <th>Token 2</th>
+                <th>Token 3</th>
+            </tr>
+            <tr>
+                <td>File 1</td>
+                <td>0</td>
+                <td>0.1</td>
+                <td>0.8</td>
+            </tr>
+            <tr>
+                <td>File 2</td>
+                <td>0.4</td>
+                <td>0.1</td>
+                <td>0.56</td>
+            </tr>
+            <tr>
+                <td>File 3</td>
+                <td>0.43</td>
+                <td>0.18</td>
+                <td>0.9</td>
+            </tr>
+        </table>
+    </section>
+
+    <section class="slide " id="dev_token2">
+        <p>Result after multiplication</p>
+        <table style="width:100%">
+            <tr>
+                <th>Dev\Token</th>
+                <th>Token 1</th>
+                <th>Token 2</th>
+                <th>Token 3</th>
+            </tr>
+            <tr>
+                <td>Dev 1</td>
+                <td>0</td>
+                <td>0.1</td>
+                <td>0.8</td>
+            </tr>
+            <tr>
+                <td>Dev 2</td>
+                <td>0.4</td>
+                <td>0.1</td>
+                <td>0.5</td>
+            </tr>
+        </table>
+    </section>
+
+    <section class="slide vista black" id="topic">
+        <style>
+            #topic {
+                background-color: rgba(0, 0, 0, 1) !important;
+                /*background-origin: content-box;*/
+                background: url("pictures/lda_diagram_neg.png");
+            }
+            #topic > h2 {
+                position: absolute;
+                bottom: 50px;
+            }
+        </style>
+    </section>
+
+    <section class="slide " id="topic_modeling">
+        <p>After topic modeling</p>
+        <table style="width:100%">
+            <tr>
+                <th>*\Topics</th>
+                <th>Topic 1</th>
+                <th>Topic 2</th>
+                <th>Topic 3</th>
+            </tr>
+            <tr>
+                <td>Dev 1</td>
+                <td>0</td>
+                <td>0.2</td>
+                <td>0.8</td>
+            </tr>
+            <tr>
+                <td>Dev 2</td>
+                <td>0.4</td>
+                <td>0.1</td>
+                <td>0.5</td>
+            </tr>
+
+            <tr>
+                <td>File 1</td>
+                <td>0.1</td>
+                <td>0.1</td>
+                <td>0.8</td>
+            </tr>
+            <tr>
+                <td>File 2</td>
+                <td>0.4</td>
+                <td>0.04</td>
+                <td>0.56</td>
+            </tr>
+            <tr>
+                <td>File 3</td>
+                <td>0.43</td>
+                <td>0.18</td>
+                <td>0.39</td>
+            </tr>
+        </table>
+
+    </section>
     
 
 	<div class="progress"></div>

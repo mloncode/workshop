@@ -494,6 +494,9 @@
             .hl-def {
                 color: #ffc66d;
             }
+            .hl-identifier {
+                color: #ffc66d;
+            }
             .hl-reserved {
                 color: #94558D;
             }
@@ -512,31 +515,31 @@
 		<h2>Parsing</h2>
 		<div id="what-is-sc">
 		<pre>
-            <code class="python"><span class="hl-keyword">def</span> <span class="hl-def">nearest_neighbors</span>(<span class="hl-reserved">self</span>, origin, k=<span class="hl-literal">10</span>,</code>
-            <code class="python">                      skipped_stop=<span class="hl-literal">0.99</span>, throw=<span class="hl-keyword">True</span>):</code>
+            <code class="python"><span class="hl-keyword">def</span> <span class="hl-identifier">nearest_neighbors</span>(<span class="hl-reserved">self</span>, <span class="hl-identifier">origin</span>, <span class="hl-identifier">k</span>=<span class="hl-literal">10</span>,</code>
+            <code class="python">                      <span class="hl-identifier">skipped_stop</span>=<span class="hl-literal">0.99</span>, <span class="hl-identifier">throw</span>=<span class="hl-keyword">True</span>):</code>
 <code class="python">    <span class="hl-comment"># origin can be either a text query or an id</span></code>
-<code class="python">    <span class="hl-keyword">if</span> <span class="hl-reserved">isinstance</span>(origin, (<span class="hl-reserved">tuple</span>, <span class="hl-reserved">list</span>):</code>
-<code class="python">	     words, weights = origin</code>
-<code class="python">	     weights = numpy.array(weights, dtype=numpy.float32)</code>
-            <code class="python">	     index = <span class="hl-keyword">None</span></code>
-<code class="python">	     avg = <span class="hl-reserved">self</span>._get_centroid(words, weights, force=<span class="hl-keyword">True</span>)</code>
+            <code class="python">    <span class="hl-keyword">if</span> <span class="hl-reserved">isinstance</span>(<span class="hl-identifier">origin</span>, (<span class="hl-reserved">tuple</span>, <span class="hl-reserved">list</span>):</code>
+            <code class="python">	     <span class="hl-identifier">words</span>, <span class="hl-identifier">weights</span> = <span class="hl-identifier">origin</span></code>
+            <code class="python">	     <span class="hl-identifier">weights</span> = <span class="hl-identifier">numpy</span>.<span class="hl-identifier">array</span>(<span class="hl-identifier">weights</span>, <span class="hl-identifier">dtype</span>=<span class="hl-identifier">numpy</span>.<span class="hl-identifier">float32</span>)</code>
+            <code class="python">	     <span class="hl-identifier">index</span> = <span class="hl-keyword">None</span></code>
+            <code class="python">	     <span class="hl-identifier">avg</span> = <span class="hl-reserved">self</span>.<span class="hl-identifier">_get_centroid</span>(<span class="hl-identifier">words</span>, <span class="hl-identifier">weights</span>, <span class="hl-identifier">force</span>=<span class="hl-keyword">True</span>)</code>
 <code class="python">    <span class="hl-keyword">else:</span></code>
-<code class="python">	     index = origin</code>
-<code class="python">	     words, weights = <span class="hl-reserved">self</span>._get_vocabulary(index)</code>
-<code class="python">	     avg = <span class="hl-reserved">self</span>._get_centroid_by_index(index)</code>
-            <code class="python">    <span class="hl-keyword">if</span> avg <span class="hl-keyword">is None</span>:</code>
+            <code class="python">	     <span class="hl-identifier">index</span> = <span class="hl-identifier">origin</span></code>
+            <code class="python">	     <span class="hl-identifier">words</span>, <span class="hl-identifier">weights</span> = <span class="hl-reserved">self</span>.<span class="hl-identifier">_get_vocabulary</span>(<span class="hl-identifier">index</span>)</code>
+            <code class="python">	     <span class="hl-identifier">avg</span> = <span class="hl-reserved">self</span>.<span class="hl-identifier">_get_centroid_by_index</span>(<span class="hl-identifier">index</span>)</code>
+            <code class="python">    <span class="hl-keyword">if</span> <span class="hl-identifier">avg</span> <span class="hl-keyword">is None</span>:</code>
 <code class="python">	     <span class="hl-keyword">raise</span> ValueError(</code>
-<code class="python">		     "Too little vocabulary for %s: %d" % (index, len(words)))</code>
+            <code class="python">		     <span class="hl-string">"Too little vocabulary for %s: %d"</span> % (<span class="hl-identifier">index</span>, len(<span class="hl-identifier">words</span>)))</code>
 		</pre>
-			<div><pre>
+            <div><pre>
 				<code class="inline-no-offset"><span class="hl-keyword">⬤</span> keywords</code>
-				<code class="inline-no-offset"><span class="hl-title">⬤</span> identifiers</code>
+				<code class="inline-no-offset"><span class="hl-identifier">⬤</span> identifiers</code>
 				<code class="inline-no-offset"><span class="hl-literal">⬤</span> literals</code>
 				<code class="inline-no-offset"><span class="hl-string">⬤</span> strings</code>
 				<code class="inline-no-offset"><span class="hl-comment">⬤</span> comments</code>
                 <code class="inline-no-offset"><span class="hl-reserved">⬤</span> reserved</code>
 			</pre></div>
-			</div>
+        </div>
 		<style>
 			#what-is-sc {
 				display: flex;
@@ -758,6 +761,9 @@
             .hl-def {
                 color: #ffc66d;
             }
+            .hl-identifier {
+                color: #ffc66d;
+            }
             .hl-reserved {
                 color: #94558D;
             }
@@ -776,25 +782,25 @@
         <h2>Input</h2>
         <div id="input">
 		<pre>
-            <code class="python"><span class="hl-keyword">def</span> <span class="hl-def">nearest_neighbors</span>(<span class="hl-reserved">self</span>, origin, k=<span class="hl-literal">10</span>,</code>
-            <code class="python">                      skipped_stop=<span class="hl-literal">0.99</span>, throw=<span class="hl-keyword">True</span>):</code>
+            <code class="python"><span class="hl-keyword">def</span> <span class="hl-identifier">nearest_neighbors</span>(<span class="hl-reserved">self</span>, <span class="hl-identifier">origin</span>, <span class="hl-identifier">k</span>=<span class="hl-literal">10</span>,</code>
+            <code class="python">                      <span class="hl-identifier">skipped_stop</span>=<span class="hl-literal">0.99</span>, <span class="hl-identifier">throw</span>=<span class="hl-keyword">True</span>):</code>
 <code class="python">    <span class="hl-comment"># origin can be either a text query or an id</span></code>
-<code class="python">    <span class="hl-keyword">if</span> <span class="hl-reserved">isinstance</span>(origin, (<span class="hl-reserved">tuple</span>, <span class="hl-reserved">list</span>):</code>
-<code class="python">	     words, weights = origin</code>
-<code class="python">	     weights = numpy.array(weights, dtype=numpy.float32)</code>
-            <code class="python">	     index = <span class="hl-keyword">None</span></code>
-<code class="python">	     avg = <span class="hl-reserved">self</span>._get_centroid(words, weights, force=<span class="hl-keyword">True</span>)</code>
+            <code class="python">    <span class="hl-keyword">if</span> <span class="hl-reserved">isinstance</span>(<span class="hl-identifier">origin</span>, (<span class="hl-reserved">tuple</span>, <span class="hl-reserved">list</span>):</code>
+            <code class="python">	     <span class="hl-identifier">words</span>, <span class="hl-identifier">weights</span> = <span class="hl-identifier">origin</span></code>
+            <code class="python">	     <span class="hl-identifier">weights</span> = <span class="hl-identifier">numpy</span>.<span class="hl-identifier">array</span>(<span class="hl-identifier">weights</span>, <span class="hl-identifier">dtype</span>=<span class="hl-identifier">numpy</span>.<span class="hl-identifier">float32</span>)</code>
+            <code class="python">	     <span class="hl-identifier">index</span> = <span class="hl-keyword">None</span></code>
+            <code class="python">	     <span class="hl-identifier">avg</span> = <span class="hl-reserved">self</span>.<span class="hl-identifier">_get_centroid</span>(<span class="hl-identifier">words</span>, <span class="hl-identifier">weights</span>, <span class="hl-identifier">force</span>=<span class="hl-keyword">True</span>)</code>
 <code class="python">    <span class="hl-keyword">else:</span></code>
-<code class="python">	     index = origin</code>
-<code class="python">	     words, weights = <span class="hl-reserved">self</span>._get_vocabulary(index)</code>
-<code class="python">	     avg = <span class="hl-reserved">self</span>._get_centroid_by_index(index)</code>
-            <code class="python">    <span class="hl-keyword">if</span> avg <span class="hl-keyword">is None</span>:</code>
+            <code class="python">	     <span class="hl-identifier">index</span> = <span class="hl-identifier">origin</span></code>
+            <code class="python">	     <span class="hl-identifier">words</span>, <span class="hl-identifier">weights</span> = <span class="hl-reserved">self</span>.<span class="hl-identifier">_get_vocabulary</span>(<span class="hl-identifier">index</span>)</code>
+            <code class="python">	     <span class="hl-identifier">avg</span> = <span class="hl-reserved">self</span>.<span class="hl-identifier">_get_centroid_by_index</span>(<span class="hl-identifier">index</span>)</code>
+            <code class="python">    <span class="hl-keyword">if</span> <span class="hl-identifier">avg</span> <span class="hl-keyword">is None</span>:</code>
 <code class="python">	     <span class="hl-keyword">raise</span> ValueError(</code>
-<code class="python">		     "Too little vocabulary for %s: %d" % (index, len(words)))</code>
+            <code class="python">		     <span class="hl-string">"Too little vocabulary for %s: %d"</span> % (<span class="hl-identifier">index</span>, len(<span class="hl-identifier">words</span>)))</code>
 		</pre>
             <div><pre>
 				<code class="inline-no-offset"><span class="hl-keyword">⬤</span> keywords</code>
-				<code class="inline-no-offset"><span class="hl-title">⬤</span> identifiers</code>
+				<code class="inline-no-offset"><span class="hl-identifier">⬤</span> identifiers</code>
 				<code class="inline-no-offset"><span class="hl-literal">⬤</span> literals</code>
 				<code class="inline-no-offset"><span class="hl-string">⬤</span> strings</code>
 				<code class="inline-no-offset"><span class="hl-comment">⬤</span> comments</code>

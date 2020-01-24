@@ -1,52 +1,25 @@
 run: jupyter
+.PHONY: run
 
 build-and-run:
 	$(MAKE) jupyter-image
 	$(MAKE) jupyter
+.PHONY: build-and-run
 
 stop:
-	docker stop devfest_jupyter devfest_gitbase devfest_bblfshd \
-		> /dev/null 2>&1 || true
-
-bblfshd:
-	docker start devfest_bblfshd > /dev/null 2>&1 \
-		|| docker run \
-			--detach \
-			--rm \
-			--name devfest_bblfshd \
-			--privileged \
-			--publish 9432:9432 \
-			--memory 2G \
-			bblfsh/bblfshd:v2.15.0-drivers \
-			--log-level DEBUG
-
-gitbase: bblfshd
-	docker start devfest_gitbase > /dev/null 2>&1 \
-		|| docker run \
-			--detach \
-			--rm \
-			--name devfest_gitbase \
-			--publish 3306:3306 \
-			--link devfest_bblfshd:devfest_bblfshd \
-			--env BBLFSH_ENDPOINT=devfest_bblfshd:9432 \
-			--env MAX_MEMORY=1024 \
-			--volume $(PWD)/repos/git-data:/opt/repos \
-			srcd/gitbase:v0.24.0-rc2
+	docker stop mloncode/workshop > /dev/null 2>&1 || true
+.PHONY: stop
 
 jupyter-image:
-	docker build -t mloncode/devfest .
+	docker build -t mloncode/workshop .
+.PHONY: jupyter-image
 
-jupyter: gitbase bblfshd
-	docker start devfest_jupyter > /dev/null 2>&1 \
+jupyter:
+	docker start mloncode/workshop > /dev/null 2>&1 \
 		|| docker run \
 		    --rm \
-		    --name devfest_jupyter \
+		    --name mloncode/workshop \
 		    --publish 8888:8888 \
-		    --link devfest_bblfshd:devfest_bblfshd \
-		    --link devfest_gitbase:devfest_gitbase \
-		    --volume $(PWD)/notebooks:/devfest/notebooks \
-		    --volume $(PWD)/repos:/devfest/repos \
-		    mloncode/devfest
-
-
-.PHONY: run build-and-run stop bblfshd gitbase jupyter-image jupyter
+		    --volume $(PWD)/notebooks:/workdir/notebooks \
+		    mloncode/workshop
+.PHONY: jupyter

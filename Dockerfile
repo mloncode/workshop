@@ -1,19 +1,14 @@
-FROM ubuntu:18.04
+FROM python:3.7.6-slim-buster
 
-RUN mkdir -p /devfest/repos /devfest/conf /devfest/nltk_data /devfest/notebooks
+WORKDIR /workdir
 
-WORKDIR /devfest
+RUN mkdir -p repos conf scripts nltk_data notebooks
 
 ARG DEBIAN_FRONTEND=noninteractive
 
-ENV BBLFSH_HOSTNAME amld_bblfshd
-ENV BBLFSH_PORT 9432
-ENV GITBASE_HOSTNAME amld_gitbase
-ENV GITBASE_PORT 3306
-ENV GITBASE_USERNAME root
-ENV GITBASE_PASSWORD ""
 ENV ARTM_SHARED_LIBRARY /usr/local/lib/libartm.so
-ENV NLTK_DATA /devfest/nltk_data
+ENV NLTK_DATA /workdir/nltk_data
+ENV TREE_SITTER_LANGUAGES_SO /workdir/tree-sitter-languages.so
 ENV LANG en_US.UTF-8
 ENV LC_ALL en_US.UTF-8
 
@@ -30,42 +25,15 @@ RUN apt-get update \
   && apt-get clean \
   && rm -rf /var/lib/apt/lists/*
 
-COPY requirements-bigartm.txt conf
+COPY conf/requirements-bigartm.txt conf/
+COPY conf/requirements-tree-sitter.txt conf/
+COPY scripts/install-bigartm scripts/
+COPY scripts/*tree-sitter* scripts/
+COPY scripts/install-nltk-data scripts/
 
-RUN apt-get update \
-  && apt-get install -y --no-install-recommends \
-  build-essential \
-  cmake \
-  git \
-  libboost-chrono-dev \
-  libboost-date-time-dev \
-  libboost-dev \
-  libboost-filesystem-dev \
-  libboost-iostreams-dev \
-  libboost-program-options-dev \
-  libboost-system-dev \
-  libboost-thread-dev \
-  libboost-timer-dev \
-  make \
-  python3-dev \
-  unzip \
-  && ln -s /usr/bin/python3 /usr/local/bin/python \
-  && curl https://bootstrap.pypa.io/get-pip.py | python \
-  && pip3 install --no-cache-dir -r conf/requirements-bigartm.txt \
-  && git clone --branch v0.10.0 https://github.com/bigartm/bigartm.git /opt/bigartm \
-  && mkdir /opt/bigartm/build \
-  && cd /opt/bigartm/build \
-  && cmake -DINSTALL_PYTHON_PACKAGE=ON -DPYTHON=python3 .. \
-  && make -j$(getconf _NPROCESSORS_ONLN) \
-  && make install \
-  && rm -rf /usr/share/doc /usr/share/man \
-  && apt-get autoremove --purge -y \
-  && apt-get clean \
-  && rm -rf /var/lib/apt/lists/* \
-  && mkdir $NLTK_DATA/corpora \
-  && curl -sSL https://raw.githubusercontent.com/nltk/nltk_data/gh-pages/packages/corpora/stopwords.zip -o $NLTK_DATA/corpora/stopwords.zip \
-  && unzip $NLTK_DATA/corpora/stopwords.zip -d $NLTK_DATA/corpora/ \
-  && rm $NLTK_DATA/corpora/stopwords.zip \
+RUN ./scripts/install-bigartm \
+  && ./scripts/install-tree-sitter \
+  && ./scripts/install-nltk-data \
   && pip3 install --no-cache-dir "jupyter == 1.0.0" \
   && pip3 install --no-cache-dir \
   "jupyter_contrib_nbextensions == 0.5.1" \
@@ -73,13 +41,15 @@ RUN apt-get update \
   && jupyter contrib nbextension install \
   && jupyter nbextensions_configurator enable
 
-COPY jupyter-notebook-config.json /root/.jupyter/nbconfig/notebook.json
-COPY jupyter-server-config.json /root/.jupyter/jupyter_notebook_config.json
+COPY conf/jupyter-notebook-config.json /root/.jupyter/nbconfig/notebook.json
+COPY conf/jupyter-server-config.json /root/.jupyter/jupyter_notebook_config.json
 
-COPY requirements*.txt conf/
-RUN pip3 install --no-cache-dir -r conf/requirements.txt \
-  && pip3 install --no-cache-dir -r conf/requirements-tf.txt
+COPY conf/requirements-setup.txt conf/
+COPY conf/requirements.txt conf/
 
-WORKDIR /devfest/notebooks
+RUN pip3 install --no-cache-dir -r conf/requirements-setup.txt \
+  && pip3 install --no-cache-dir -r conf/requirements.txt
+
+WORKDIR /workdir/notebooks
 
 ENTRYPOINT jupyter notebook --ip 0.0.0.0 --allow-root --no-browser

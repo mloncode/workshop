@@ -1,2 +1,4 @@
-repos
+env.sh
 .mypy_cache
+notebooks/output
+notebooks/repos

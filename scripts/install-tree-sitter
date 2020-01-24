@@ -1,0 +1,18 @@
+#!/bin/bash
+
+if [[ -z "${TREE_SITTER_LANGUAGES_SO}" ]]; then
+  echo "Please set the env variable TREE_SITTER_LANGUAGES_SO to the desired output path."
+  exit 1
+fi
+
+apt-get update \
+    && apt-get install -y --no-install-recommends build-essential \
+    && pip3 install --no-cache-dir -r conf/requirements-tree-sitter.txt \
+    && git clone \
+        --branch v0.13.0 \
+        --depth 1 \
+        https://github.com/tree-sitter/tree-sitter-java \
+        /opt/tree-sitter-java \
+    && python scripts/build-tree-sitter-library.py \
+        --languages /opt/tree-sitter-java \
+        --output "$TREE_SITTER_LANGUAGES_SO"

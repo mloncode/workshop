@@ -1,13 +1,932 @@
-<html>
+<!DOCTYPE html>
+<html lang="en">
 <head>
-<title>List of presentations</title>
+	<title>AMLD 2020</title>
+	<meta charset="utf-8">
+	<meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no">
+    <meta property="og:url" content="https://mloncode.github.io/amld2020-workshop/" />
+    <link rel="stylesheet" href="shower/themes/ribbon/styles/screen-16x10.css">
 </head>
-<body>
-<h1>List of presentations</h1>
-<ul>
-<li><a href="http://mloncode.github.io/amld2020-workshop/">Machine Learning for Software Engineering: modelling the source code workshop</a></li>
-</ul>
+<body class="shower list">
 
+	<header class="caption">
+		<button type="button" id="fullscreen" title="Go fullscreen" onclick="fullscreen()"><i class="fa fa-arrows-alt"></i></button>
+		<h1>Machine Learning for Software Engineering: modelling the source code workshop</h1>
+        <p><a href="https://github.com/mloncode/amld2020-workshop">GitHub</a>.</p>
+	</header>
+
+	<style>
+        body {
+            -webkit-font-smoothing: antialiased;
+            -webkit-tap-highlight-color: transparent;
+        }
+        -webkit-full-screen {
+            z-index: 1;
+            height: 100%;
+        }
+        /*-webkit-print-color-adjust {*/
+            /*exact;*/
+        /*}*/
+        :-webkit-full-screen .full section {
+            /* fix buggy Chrome offsets */
+            margin-left: -1px !important;
+            margin-top: -1px !important;
+        }
+        .slide {
+            color: white;
+            background: black;
+        }
+        .slide h2 {
+            color: #bababa;
+        }
+
+        #fullscreen {
+            float: right;
+            height: 48px;
+            width: 48px;
+            background: none;
+            -webkit-appearance: none;
+            cursor: pointer;
+            border: none;
+            color: #3c3d40;
+            position: fixed;
+            right: 20px;
+        }
+        #fullscreen:hover {
+            color: #bababa;
+        }
+        #fullscreen:focus {
+            outline: none;
+        }
+        #fullscreen > i {
+            font-size: 36px;
+            text-align: center;
+        }
+        .slide p {
+            line-height: 1.25;
+        }
+        .slide::after {
+            display: none;
+        }
+        .center {
+            display: table;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        h2.bottom {
+            position: absolute;
+            bottom: 50px;
+        }
+        .important {
+            color: red;
+        }
+        .mono {
+            font-family: monospace;
+        }
+        .success {
+            color: green;
+        }
+        .vista {
+            background-size: contain !important;
+            background-repeat: no-repeat !important;
+            background-position: center !important;
+        }
+        .vista-cover {
+            background-size: cover !important;
+        }
+        i.fa {
+            font-style: normal;
+        }
+        ul.no-bullets > li::before {
+            display: none;
+            text-indent: 0;
+        }
+        ul.no-bullets > li {
+            text-indent: 0;
+        }
+		code.inline:before, code.inline-no-offset:before {
+			display: none;
+		}
+		code.inline, code.inline-no-offset {
+			padding: 0;
+		}
+		code.inline-no-offset {
+			margin-left: 0 !important;
+			padding-left: 50px !important;
+		}
+		.part-teaser {
+			text-align: center;
+			vertical-align: middle;
+			line-height: 400px !important;
+		}
+		.slide a {
+			background: none;
+            color: white !important;
+            font-weight: bold;
+		}
+		.slide a:hover {
+			background: linear-gradient(to top,currentColor .09em,transparent .09em) repeat-x;
+		}
+        img.obj-cover {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .fa {
+            display: inline;
+        }
+        ul.two-cols {
+            overflow: hidden;
+        }
+        ul.two-cols > li::before {
+            width: initial;
+        }
+        ul.no-bullets > li::before {
+            display: none;
+            text-indent: 0;
+        }
+        ul.two-cols > li {
+            text-indent: 0;
+            float: left;
+            width: 50%;
+        }
+        .monofa {
+            width: 1.5em;
+            margin-right: 0.5em;
+            display: inline-block;
+            text-align: center;
+        }
+        .fa-bullets > li {
+            margin-left: -2em;
+        }
+        .white {
+            color: white !important;
+        }
+        .black {
+            color: #202020 !important;
+        }
+        .part {
+            background: radial-gradient(circle at center, #d2c098 0, black 130%);
+        }
+        .part > h2 {
+            font-family: "CartaMarinaBold";
+            color: black;
+        }
+        @font-face {
+            font-family: "ShareTechMono";
+            src: url("fonts/ShareTechMono-Regular.ttf") format("ttf");
+            src: url("fonts/ShareTechMono-Regular.woff2") format("woff2");
+        }
+    </style>
+
+    <section class="slide atom">
+        <h2>Plan</h2>
+        <ul>
+            <li>ML on Code</li>
+            <li>Similar repository/developer search</li>
+            <li>Name suggestion</li>
+        </ul>
+    </section>
+
+    <section class="slide vista vista-cover dragons">
+        <div></div>
+        <h2>What's MLonCode?</h2>
+        <style>
+            @font-face {
+              font-family: CartaMarinaBold;
+              src: url("fonts/Carta Marina Bold.woff2") format("woff2")
+            }
+            .dragons {
+                background: url("pictures/what_mloncode/here_be_dragons.jpg") #000;
+            }
+            .dragons h2 {
+                position: absolute;
+                left: 507px;
+                top: 147px;
+                width: 280px;
+                text-align: center;
+                color: #000;
+                font-family: CartaMarinaBold;
+            }
+            .dragons div {
+                position: absolute;
+                left: 527px;
+                width: 240px;
+                height: 240px;
+                top: 72px;
+                background: radial-gradient(circle at center, #bababa 0, rgba(186, 186, 186, 0) 75%)
+            }
+        </style>
+    </section>
+
+    <section class="slide vista" id="source-ml">
+		<style>
+			#source-ml {
+					background: black url("pictures/what_mloncode/source_ml.svg");
+            }
+		</style>
+	</section>
+
+    <section class="slide vista" id="ml">
+        <h2 class="shout small-shout">Why ML on Code hard?</h2>
+        <style>
+            #ml {
+                background-image: url("pictures/why_mloncode_hard/cover.jpg");
+            }
+            #ml::before {
+                content: "";
+                position: absolute;
+                left: 0;
+                top: 0;
+                right: 0;
+                bottom: 0;
+                background-color: rgba(0, 0, 0, 0.75);
+            }
+        </style>
+    </section>
+
+    <section class="slide vista " id="tools">
+        <h2 class="white shout">Tools</h2>
+        <style>
+            #tools {
+                background-image: url("pictures/why_mloncode_hard/tools.png");
+                background-size: cover !important;
+                filter: brightness(70%)
+            }
+            #tools::before {
+                content: "";
+                position: absolute;
+                left: 0;
+                top: 0;
+                right: 0;
+                bottom: 0;
+                background-color: rgba(0, 0, 0, 0.3);
+            }
+        </style>
+    </section>
+
+    <section class="slide vista" id="mloncode-pyramid-1">
+        <style>
+            #mloncode-pyramid-1 {
+                padding: 100px;
+                background-origin: content-box;
+                background-image: url("pictures/why_mloncode_hard/pyramid_white_1.svg");
+            }
+        </style>
+    </section>
+
+    <section class="slide vista" id="mloncode-pyramid-2">
+        <style>
+            #mloncode-pyramid-2 {
+                padding: 100px;
+                background-origin: content-box;
+                background-image: url("pictures/why_mloncode_hard/pyramid_white_2.svg");
+            }
+        </style>
+    </section>
+
+    <section class="slide vista" id="mloncode-pyramid-3">
+        <style>
+            #mloncode-pyramid-3 {
+                padding: 100px;
+                background-origin: content-box;
+                background-image: url("pictures/why_mloncode_hard/pyramid_white_3.svg");
+            }
+        </style>
+    </section>
+
+    <section class="slide vista" id="mloncode-pyramid-4">
+        <style>
+            #mloncode-pyramid-4 {
+                padding: 100px;
+                background-origin: content-box;
+                background-image: url("pictures/why_mloncode_hard/pyramid_white_4.svg");
+            }
+        </style>
+    </section>
+
+    <section class="slide vista" id="mloncode-pyramid-5">
+        <style>
+            #mloncode-pyramid-5 {
+                padding: 100px;
+                background-origin: content-box;
+                background-image: url("pictures/why_mloncode_hard/pyramid_white_5.svg");
+            }
+        </style>
+    </section>
+
+    <section class="slide vista" id="mloncode-pyramid-6">
+        <style>
+            #mloncode-pyramid-6 {
+                padding: 100px;
+                background-origin: content-box;
+                background-image: url("pictures/why_mloncode_hard/pyramid_white_6.svg");
+            }
+        </style>
+    </section>
+
+    <section class="slide vista" id="mloncode-pyramid-7">
+        <style>
+            #mloncode-pyramid-7 {
+                padding: 100px;
+                background-origin: content-box;
+                background-image: url("pictures/why_mloncode_hard/pyramid_white.svg");
+            }
+        </style>
+    </section>
+
+    <section class="slide vista" id="nlp">
+        <style>
+            #nlp {
+                background: black url("pictures/NLP-neg.png");
+            }
+        </style>
+    </section>
+
+
+    <section class="slide vista" id="langs0">
+        <h2>#words</h2>
+        <style>
+            #langs0 {
+                background-color: rgba(0, 0, 0, 1) !important;
+                background: url("pictures/why_mloncode_hard/langs/langs_0_neg.png");
+            }
+        </style>
+    </section>
+
+    <section class="slide vista" id="langs1">
+        <h2>#words</h2>
+        <style>
+            #langs1 {
+                background-color: rgba(0, 0, 0, 1) !important;
+                background: url("pictures/why_mloncode_hard/langs/langs_1_neg.png");
+            }
+        </style>
+    </section>
+
+    <section class="slide vista" id="langs2">
+        <h2>#words</h2>
+        <style>
+            #langs2 {
+                background-color: rgba(0, 0, 0, 1) !important;
+                background: url("pictures/why_mloncode_hard/langs/langs_2_neg.png");
+            }
+        </style>
+    </section>
+
+    <section class="slide vista" id="langs3">
+        <h2>#words</h2>
+        <style>
+            #langs3 {
+                background-color: rgba(0, 0, 0, 1) !important;
+                background: url("pictures/why_mloncode_hard/langs/langs_3_neg.png");
+            }
+        </style>
+    </section>
+
+    <section class="slide vista" id="langs4">
+        <h2>#words</h2>
+        <style>
+            #langs4 {
+                background-color: rgba(0, 0, 0, 1) !important;
+                background: url("pictures/why_mloncode_hard/langs/langs_4_neg.png");
+            }
+        </style>
+    </section>
+
+    <section class="slide vista" id="langs5">
+        <h2>#words</h2>
+        <style>
+            #langs5 {
+                background-color: rgba(0, 0, 0, 1) !important;
+                background: url("pictures/why_mloncode_hard/langs/langs_5_neg.png");
+            }
+        </style>
+    </section>
+
+    <section class="slide vista" id="langs6">
+        <h2>#words</h2>
+        <style>
+            #langs6 {
+                background-color: rgba(0, 0, 0, 1) !important;
+                background: url("pictures/why_mloncode_hard/langs/langs_6_neg.png");
+            }
+        </style>
+    </section>
+
+    <section class="slide">
+        <h2>Why so many identifiers?</h2>
+        <pre>
+            <code>_tcp_socket_connect -> [tcp, socket, connect]</code>
+            <code>AuthenticationError -> [authentication, error]</code>
+            <code>set_visible -> [set, visible]</code>
+        </pre>
+    </section>
+
+    <section class="slide vista vista-cover" id="structure">
+        <h2 class="shout">Structure</h2>
+        <style>
+            #structure {
+                background: url("pictures/basics/cover.jpeg");
+            }
+            #structure::before {
+                content: "";
+                position: absolute;
+                left: 0;
+                top: 0;
+                right: 0;
+                bottom: 0;
+                background-color: rgba(0, 0, 0, 0.7);
+            }
+        </style>
+    </section>
+
+    <section class="slide">
+		<h2>Parsing</h2>
+		<div id="what-is-sc-0">
+		<pre>
+            <code class="python">def nearest_neighbors(self, origin, k=10,</code>
+            <code class="python">                      skipped_stop=0.99, throw=True):</code>
+<code class="python">    # origin can be either a text query or an id</code>
+<code class="python">    if isinstance(origin, (tuple, list):</code>
+<code class="python">	     words, weights = origin</code>
+<code class="python">	     weights = numpy.array(weights, dtype=numpy.float32)</code>
+            <code class="python">	     index = None</code>
+<code class="python">	     avg = self._get_centroid(words, weights, force=True)</code>
+<code class="python">    else:</code>
+<code class="python">	     index = origin</code>
+<code class="python">	     words, weights = self._get_vocabulary(index)</code>
+<code class="python">	     avg = self._get_centroid_by_index(index)</code>
+            <code class="python">    if avg is None:</code>
+<code class="python">	     raise ValueError(</code>
+<code class="python">		     "Too little vocabulary for %s: %d" % (index, len(words)))</code>
+        </pre></div>
+
+        <style>
+			#what-is-sc-0 {
+				display: flex;
+			}
+			#what-is-sc-0 > pre {
+				font-size: 0.5em;
+				margin-right: 100px;
+			}
+			#what-is-sc-0 > div > pre {
+				border: 1px solid white;
+				border-radius: 5px;
+				padding-top: 10px;
+				padding-bottom: 10px;
+			}
+			#what-is-sc-0 > div > pre > code {
+				padding: 0 20px !important;
+			}
+		</style>
+	</section>
+
+
+    <section class="slide">
+
+        <style>
+            .hl-keyword {
+                color: #cc8242;
+                font-weight: bold;
+            }
+            .hl-def {
+                color: #ffc66d;
+            }
+            .hl-identifier {
+                color: #ffc66d;
+            }
+            .hl-reserved {
+                color: #94558D;
+            }
+            .hl-string {
+                color: #6a8759;
+            }
+            .hl-comment {
+                color: #707070;
+            }
+            .box {
+                border: 1px solid white;
+                padding: 0.05em 0.1em;
+            }
+        </style>
+
+		<h2>Parsing</h2>
+		<div id="what-is-sc">
+		<pre>
+            <code class="python"><span class="hl-keyword">def</span> <span class="hl-identifier">nearest_neighbors</span>(<span class="hl-reserved">self</span>, <span class="hl-identifier">origin</span>, <span class="hl-identifier">k</span>=<span class="hl-literal">10</span>,</code>
+            <code class="python">                      <span class="hl-identifier">skipped_stop</span>=<span class="hl-literal">0.99</span>, <span class="hl-identifier">throw</span>=<span class="hl-keyword">True</span>):</code>
+<code class="python">    <span class="hl-comment"># origin can be either a text query or an id</span></code>
+            <code class="python">    <span class="hl-keyword">if</span> <span class="hl-reserved">isinstance</span>(<span class="hl-identifier">origin</span>, (<span class="hl-reserved">tuple</span>, <span class="hl-reserved">list</span>):</code>
+            <code class="python">	     <span class="hl-identifier">words</span>, <span class="hl-identifier">weights</span> = <span class="hl-identifier">origin</span></code>
+            <code class="python">	     <span class="hl-identifier">weights</span> = <span class="hl-identifier">numpy</span>.<span class="hl-identifier">array</span>(<span class="hl-identifier">weights</span>, <span class="hl-identifier">dtype</span>=<span class="hl-identifier">numpy</span>.<span class="hl-identifier">float32</span>)</code>
+            <code class="python">	     <span class="hl-identifier">index</span> = <span class="hl-keyword">None</span></code>
+            <code class="python">	     <span class="hl-identifier">avg</span> = <span class="hl-reserved">self</span>.<span class="hl-identifier">_get_centroid</span>(<span class="hl-identifier">words</span>, <span class="hl-identifier">weights</span>, <span class="hl-identifier">force</span>=<span class="hl-keyword">True</span>)</code>
+<code class="python">    <span class="hl-keyword">else:</span></code>
+            <code class="python">	     <span class="hl-identifier">index</span> = <span class="hl-identifier">origin</span></code>
+            <code class="python">	     <span class="hl-identifier">words</span>, <span class="hl-identifier">weights</span> = <span class="hl-reserved">self</span>.<span class="hl-identifier">_get_vocabulary</span>(<span class="hl-identifier">index</span>)</code>
+            <code class="python">	     <span class="hl-identifier">avg</span> = <span class="hl-reserved">self</span>.<span class="hl-identifier">_get_centroid_by_index</span>(<span class="hl-identifier">index</span>)</code>
+            <code class="python">    <span class="hl-keyword">if</span> <span class="hl-identifier">avg</span> <span class="hl-keyword">is None</span>:</code>
+<code class="python">	     <span class="hl-keyword">raise</span> ValueError(</code>
+            <code class="python">		     <span class="hl-string">"Too little vocabulary for %s: %d"</span> % (<span class="hl-identifier">index</span>, len(<span class="hl-identifier">words</span>)))</code>
+		</pre>
+            <div><pre>
+				<code class="inline-no-offset"><span class="hl-keyword">⬤</span> keywords</code>
+				<code class="inline-no-offset"><span class="hl-identifier">⬤</span> identifiers</code>
+				<code class="inline-no-offset"><span class="hl-literal">⬤</span> literals</code>
+				<code class="inline-no-offset"><span class="hl-string">⬤</span> strings</code>
+				<code class="inline-no-offset"><span class="hl-comment">⬤</span> comments</code>
+                <code class="inline-no-offset"><span class="hl-reserved">⬤</span> reserved</code>
+			</pre></div>
+        </div>
+		<style>
+			#what-is-sc {
+				display: flex;
+			}
+			#what-is-sc > pre {
+				font-size: 0.5em;
+				margin-right: 100px;
+			}
+			#what-is-sc > div > pre {
+				border: 1px solid white;
+				border-radius: 5px;
+				padding-top: 10px;
+				padding-bottom: 10px;
+			}
+			#what-is-sc > div > pre > code {
+				padding: 0 20px !important;
+			}
+		</style>
+	</section>
+
+    <section class="slide vista black" id="ast">
+        <h2>AST</h2>
+        <style>
+            #ast {
+                background-color: rgba(0, 0, 0, 1) !important;
+                /*background-origin: content-box;*/
+                background: url("pictures/why_mloncode_hard/ast_white.svg");
+            }
+            #ast > h2 {
+                position: absolute;
+                bottom: 50px;
+            }
+        </style>
+    </section>
+
+
+    <section class="slide vista vista-cover" id="history">
+        <h2 class="shout">History</h2>
+
+        <video controls autoplay loop width="100%">
+            <source src="pictures/history.mp4" type="video/mp4">
+        </video>
+
+    </section>
+
+    <section class="slide " id="take_away1">
+        <h2>Different levels of analysis</h2>
+        <ol>
+            <li>Code</li>
+                <ul><li>text, AST, CFG, DFG, argAST, IR, binary</li></ul>
+            <li>Code + history</li>
+            <ul><li>edits, diff, AST diff</li></ul>
+            <li>Code + history + metadata</li>
+            <ul><li>code + SE Context: Issue Trackers, CI build logs</li></ul>
+        </ol>
+
+    </section>
+
+    <section class="slide " id="take_away2">
+        <h2>Areas of ML on Code</h2>
+        <ul>
+            <li>Compiler optimizations</li>
+            <li>Software de-bloating</li>
+            <li>Static analysis</li>
+            <li>Program repair</li>
+            <li>Defect prediction</li>
+            <li>Code clone detection</li>
+            <li>...</li>
+        </ul>
+
+    </section>
+
+
+
+    <section class="slide">
+        <h2 class="shout">Developer/project similarity</h2>
+    </section>
+
+    <section class="slide">
+        <h2>Pipeline</h2>
+        <ol>
+            <li>Clone the organization.</li>
+            <li>Classify and parse source code.</li>
+            <li>Extract identifiers per file.</li>
+            <li>Extract experience per developer - files, etc.</li>
+            <li>Topic modeling.</li>
+        </ol>
+    </section>
+
+    <section class="slide " id="dev_token">
+        <p>From git history</p>
+        <table style="width:100%">
+            <tr>
+                <th>Dev\Files</th>
+                <th>File 1</th>
+                <th>File 2</th>
+                <th>File 3</th>
+            </tr>
+            <tr>
+                <td>Dev 1</td>
+                <td>0</td>
+                <td>0.1</td>
+                <td>0.8</td>
+            </tr>
+            <tr>
+                <td>Dev 2</td>
+                <td>0.4</td>
+                <td>0.1</td>
+                <td>0.5</td>
+            </tr>
+        </table>
+        <p>From head revision</p>
+        <table style="width:100%">
+            <tr>
+                <th>Files\Tokens</th>
+                <th>Token 1</th>
+                <th>Token 2</th>
+                <th>Token 3</th>
+            </tr>
+            <tr>
+                <td>File 1</td>
+                <td>0</td>
+                <td>0.1</td>
+                <td>0.8</td>
+            </tr>
+            <tr>
+                <td>File 2</td>
+                <td>0.4</td>
+                <td>0.1</td>
+                <td>0.56</td>
+            </tr>
+            <tr>
+                <td>File 3</td>
+                <td>0.43</td>
+                <td>0.18</td>
+                <td>0.9</td>
+            </tr>
+        </table>
+    </section>
+
+
+
+    <section class="slide vista black" id="topic">
+        <style>
+            #topic {
+                background-color: rgba(0, 0, 0, 1) !important;
+                /*background-origin: content-box;*/
+                background: url("pictures/lda_diagram_neg.png");
+            }
+            #topic > h2 {
+                position: absolute;
+                bottom: 50px;
+            }
+        </style>
+    </section>
+
+    <section class="slide " id="topic_modeling">
+        <p>After topic modeling</p>
+        <table style="width:100%">
+            <tr>
+                <th>Files\Topics</th>
+                <th>Topic 1</th>
+                <th>Topic 2</th>
+                <th>Topic 3</th>
+            </tr>
+
+            <tr>
+                <td>File 1</td>
+                <td>0.1</td>
+                <td>0.1</td>
+                <td>0.8</td>
+            </tr>
+            <tr>
+                <td>File 2</td>
+                <td>0.4</td>
+                <td>0.04</td>
+                <td>0.56</td>
+            </tr>
+            <tr>
+                <td>File 3</td>
+                <td>0.43</td>
+                <td>0.18</td>
+                <td>0.39</td>
+            </tr>
+        </table>
+
+    </section>
+
+    <section class="slide " id="dev_token2">
+        <p>Result of multiplication</p>
+        <table style="width:100%">
+            <tr>
+                <th>Dev\Topic</th>
+                <th>Topic 1</th>
+                <th>Topic 2</th>
+                <th>Topic 3</th>
+            </tr>
+            <tr>
+                <td>Dev 1</td>
+                <td>0</td>
+                <td>0.2</td>
+                <td>0.8</td>
+            </tr>
+            <tr>
+                <td>Dev 2</td>
+                <td>0.4</td>
+                <td>0.1</td>
+                <td>0.5</td>
+            </tr>
+        </table>
+    </section>
+
+    <section class="slide">
+        <h2 class="shout">Name suggestion</h2>
+    </section>
+
+    <section class="slide">
+        <h2>Pipeline</h2>
+        <ol>
+            <li>Clone the organization.</li>
+            <li>Classify and parse source code.</li>
+            <li>Extract functions - names and bodies.</li>
+            <li>Prepare X (body identifiers) & y (function name).</li>
+            <li>Sub-words encoding.</li>
+            <li>seq2seq.</li>
+            <li>Evaluation.</li>
+        </ol>
+    </section>
+
+    <section class="slide">
+
+        <style>
+            .hl-keyword {
+                color: #cc8242;
+                font-weight: bold;
+            }
+            .hl-def {
+                color: #ffc66d;
+            }
+            .hl-identifier {
+                color: #ffc66d;
+            }
+            .hl-reserved {
+                color: #94558D;
+            }
+            .hl-string {
+                color: #6a8759;
+            }
+            .hl-comment {
+                color: #707070;
+            }
+            .box {
+                border: 1px solid white;
+                padding: 0.05em 0.1em;
+            }
+        </style>
+
+        <h2>Input</h2>
+        <div id="input">
+		<pre>
+            <code class="python"><span class="hl-keyword">def</span> <span class="hl-identifier">nearest_neighbors</span>(<span class="hl-reserved">self</span>, <span class="hl-identifier">origin</span>, <span class="hl-identifier">k</span>=<span class="hl-literal">10</span>,</code>
+            <code class="python">                      <span class="hl-identifier">skipped_stop</span>=<span class="hl-literal">0.99</span>, <span class="hl-identifier">throw</span>=<span class="hl-keyword">True</span>):</code>
+<code class="python">    <span class="hl-comment"># origin can be either a text query or an id</span></code>
+            <code class="python">    <span class="hl-keyword">if</span> <span class="hl-reserved">isinstance</span>(<span class="hl-identifier">origin</span>, (<span class="hl-reserved">tuple</span>, <span class="hl-reserved">list</span>):</code>
+            <code class="python">	     <span class="hl-identifier">words</span>, <span class="hl-identifier">weights</span> = <span class="hl-identifier">origin</span></code>
+            <code class="python">	     <span class="hl-identifier">weights</span> = <span class="hl-identifier">numpy</span>.<span class="hl-identifier">array</span>(<span class="hl-identifier">weights</span>, <span class="hl-identifier">dtype</span>=<span class="hl-identifier">numpy</span>.<span class="hl-identifier">float32</span>)</code>
+            <code class="python">	     <span class="hl-identifier">index</span> = <span class="hl-keyword">None</span></code>
+            <code class="python">	     <span class="hl-identifier">avg</span> = <span class="hl-reserved">self</span>.<span class="hl-identifier">_get_centroid</span>(<span class="hl-identifier">words</span>, <span class="hl-identifier">weights</span>, <span class="hl-identifier">force</span>=<span class="hl-keyword">True</span>)</code>
+<code class="python">    <span class="hl-keyword">else:</span></code>
+            <code class="python">	     <span class="hl-identifier">index</span> = <span class="hl-identifier">origin</span></code>
+            <code class="python">	     <span class="hl-identifier">words</span>, <span class="hl-identifier">weights</span> = <span class="hl-reserved">self</span>.<span class="hl-identifier">_get_vocabulary</span>(<span class="hl-identifier">index</span>)</code>
+            <code class="python">	     <span class="hl-identifier">avg</span> = <span class="hl-reserved">self</span>.<span class="hl-identifier">_get_centroid_by_index</span>(<span class="hl-identifier">index</span>)</code>
+            <code class="python">    <span class="hl-keyword">if</span> <span class="hl-identifier">avg</span> <span class="hl-keyword">is None</span>:</code>
+<code class="python">	     <span class="hl-keyword">raise</span> ValueError(</code>
+            <code class="python">		     <span class="hl-string">"Too little vocabulary for %s: %d"</span> % (<span class="hl-identifier">index</span>, len(<span class="hl-identifier">words</span>)))</code>
+		</pre>
+            <div><pre>
+				<code class="inline-no-offset"><span class="hl-keyword">⬤</span> keywords</code>
+				<code class="inline-no-offset"><span class="hl-identifier">⬤</span> identifiers</code>
+				<code class="inline-no-offset"><span class="hl-literal">⬤</span> literals</code>
+				<code class="inline-no-offset"><span class="hl-string">⬤</span> strings</code>
+				<code class="inline-no-offset"><span class="hl-comment">⬤</span> comments</code>
+                <code class="inline-no-offset"><span class="hl-reserved">⬤</span> reserved</code>
+			</pre></div>
+        </div>
+        <style>
+            #input {
+                display: flex;
+            }
+            #input > pre {
+                font-size: 0.5em;
+                margin-right: 100px;
+            }
+            #input > div > pre {
+                border: 1px solid white;
+                border-radius: 5px;
+                padding-top: 10px;
+                padding-bottom: 10px;
+            }
+            #input > div > pre > code {
+                padding: 0 20px !important;
+            }
+        </style>
+    </section>
+
+    <section class="slide " id="seq2seq_input">
+        <p>X & y</p>
+        <table style="width:100%">
+            <tr>
+                <th>X</th>
+                <th>y</th>
+
+            </tr>
+            <tr>
+                <td>origin</td>
+                <td>nearest_neighbors</td>
+
+            </tr>
+            <tr>
+                <td>k</td>
+
+            </tr>
+
+            <tr>
+                <td>skipped_stop</td>
+
+            </tr>
+            <tr>
+                <td>throw</td>
+
+            </tr>
+            <tr>
+                <td>origin</td>
+
+            </tr>
+            <tr>
+                <td>...</td>
+
+            </tr>
+        </table>
+
+    </section>
+
+    <section class="slide vista black" id="seq2seq">
+        <style>
+            #seq2seq {
+                background-color: rgba(0, 0, 0, 1) !important;
+                /*background-origin: content-box;*/
+                background: url("pictures/seq2seq.gif");
+            }
+            #seq2seq > h2 {
+                position: absolute;
+                bottom: 50px;
+            }
+        </style>
+    </section>
+    
+
+	<div class="progress"></div>
+
+	<script src="shower/shower.min.js"></script>
+    <script async src="https://use.fontawesome.com/72adc0539b.js"></script>
+    <script async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-AMS_CHTML"></script>
+	<script>
+    function fullscreen() {
+        if (!document.fullscreenElement && !document.mozFullScreenElement &&
+			!document.webkitFullscreenElement) {
+            var body = document.getElementsByTagName("html")[0];
+            if (body.requestFullscreen) {
+                body.requestFullscreen();
+            } else if (body.mozRequestFullScreen) {
+                body.mozRequestFullScreen();
+            } else if (body.webkitRequestFullScreen) {
+                body.webkitRequestFullScreen();
+            }
+            document.getElementById("fullscreen").title = "Return";
+        } else {
+            if (document.cancelFullScreen) {
+                document.cancelFullScreen();
+            } else if (document.mozCancelFullScreen) {
+                document.mozCancelFullScreen();
+            } else if (document.webkitCancelFullScreen) {
+                document.webkitCancelFullScreen();
+            }
+            document.getElementById("fullscreen").title = "Go fullscreen";
+        }
+    }
+    </script>
 </body>
 </html>
-

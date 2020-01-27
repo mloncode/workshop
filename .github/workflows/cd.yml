@@ -1,0 +1,24 @@
+name: CD
+
+on:
+  push:
+    tags:
+      - "*"
+
+jobs:
+  deploy:
+    name: Deploy to Docker Hub
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+      - name: Build and tag Docker image
+        run: |
+          export TAG=${GITHUB_REF##*/}
+          echo Building for tag "$TAG"
+          docker build -t $IMG_NAME:$TAG .
+          docker tag $IMG_NAME:$TAG $IMG_NAME:latest
+          echo "${{ secrets.DOCKER_PASSWORD }}" | docker login -u "${{ secrets.DOCKER_LOGIN }}" --password-stdin
+          docker push $IMG_NAME
+        env:
+          IMG_NAME: mloncode/workshop

@@ -1,8 +1,6 @@
 # Machine Learning for Software Engineering: modelling the source code
 
-Workshop given at [Applied Machine Learning Days](https://appliedmldays.org/workshops/machine-learning-for-software-engineering-modelling-the-source-code), EPFL, Lausanne, January 26.
-
-Slides are [online](https://mlonco.de/amld2020-workshop/).
+Slides are [online](https://mlonco.de/workshop/).
 
 OSS tools covered:
 
@@ -26,8 +24,6 @@ OSS tools covered:
 > Prerequisites: familiarity with the basics of DeepLearning, a laptop with Docker installed
 
 </details>
-
-Slides: on [gDrive](#TBD)
 
 ## Prerequisites
 

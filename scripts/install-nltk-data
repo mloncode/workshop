@@ -1,0 +1,15 @@
+#!/bin/bash
+
+if [[ -z "${NLTK_DATA}" ]]; then
+  echo "Please set the env variable NLTK_DATA to the desired directory path."
+  exit 1
+fi
+
+apt-get update \
+    && apt-get install -y --no-install-recommends curl unzip \
+    && mkdir "$NLTK_DATA/corpora" \
+    && curl -sSL \
+        "https://raw.githubusercontent.com/nltk/nltk_data/gh-pages/packages/corpora/stopwords.zip" \
+        -o "$NLTK_DATA/corpora/stopwords.zip" \
+    && unzip "$NLTK_DATA/corpora/stopwords.zip" -d "$NLTK_DATA/corpora/" \
+    && rm "$NLTK_DATA/corpora/stopwords.zip" \

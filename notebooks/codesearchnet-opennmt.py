@@ -27,12 +27,13 @@ class CodeSearchNetRAM(object):
     def __init__(self, split_path: Path, newline_repl: str):
         super().__init__()
         self.pd = pd
+        self.newline_repl = newline_repl
 
         files = sorted(split_path.glob("**/*.gz"))
         logging.info(f"Total number of files: {len(files):,}")
         assert files, "could not find files under %s" % split_path
 
-        columns_list = ["code", "func_name"]
+        columns_list = ["code", "func_name", "code_tokens"]
 
         start = time()
         self.pd = self._jsonl_list_to_dataframe(files, columns_list)
@@ -63,10 +64,21 @@ class CodeSearchNetRAM(object):
 
         # drop fn signature
         code = row["code"]
-        fn_body = code[code.find("{") + 1 : code.rfind("}")].lstrip().rstrip()
-        fn_body = fn_body.replace("\n", "\\n")
+        fn_body = (
+            code[
+                code.find("{", code.find(fn_name) + len(fn_name)) + 1 : code.rfind("}")
+            ]
+            .lstrip()
+            .rstrip()
+        )
+        fn_body = fn_body.replace("\n", self.newline_repl)
         # fn_body_enc = self.enc.encode(fn_body)
-        return (fn_name, fn_body)
+
+        tokens = row["code_tokens"]
+        body_tokens = tokens[tokens.index(fn_name) + 2 :]
+        fn_body_tokens = body_tokens[body_tokens.index("{") + 1 : len(body_tokens) - 1]
+
+        return (fn_name, fn_body, fn_body_tokens)
 
     def __len__(self) -> int:
         return len(self.pd)
@@ -78,14 +90,15 @@ def main(args: Namespace) -> None:
     with open(args.src_file % split_name, mode="w", encoding="utf8") as s, open(
         args.tgt_file % split_name, mode="w", encoding="utf8"
     ) as t:
-        for fn_name, fn_body in dataset:
+        for fn_name, fn_body, fn_body_tokens in dataset:
             if not fn_name or not fn_body:
                 continue
+            src = " ".join(fn_body_tokens) if args.token_level_sources else fn_body
             tgt = fn_name if args.word_level_targets else " ".join(fn_name)
             if args.print:
-                print(f"'{fn_name[:40]:40}' - '{tgt[:40]:40}'")
+                print(f"'{tgt[:40]:40}' - '{src[:40]:40}'")
             else:
-                print(fn_body, file=s)
+                print(src, file=s)
                 print(tgt, file=t)
 
 
@@ -103,17 +116,26 @@ if __name__ == "__main__":
     )
 
     parser.add_argument(
+        "--token-level-sources",
+        action="store_true",
+        help="Use language-specific token sources instead of word level ones",
+    )
+
+    parser.add_argument(
         "--word-level-targets",
         action="store_true",
         help="Use word level targets instead of char level ones",
     )
 
     parser.add_argument(
-        "--src_file", type=str, default="src-%s.txt", help="File with function bodies",
+        "--src_file",
+        type=str,
+        default="src-%s.token",
+        help="File with function bodies",
     )
 
     parser.add_argument(
-        "--tgt_file", type=str, default="tgt-%s.txt", help="File with function texts"
+        "--tgt_file", type=str, default="tgt-%s.token", help="File with function texts"
     )
 
     parser.add_argument(

@@ -1,3 +1,14 @@
+"""
+CLI tool for converting CodeSearchNet dataset to OpenNMT format for
+function name suggestion task.
+
+Usage example:
+    wget 'https://s3.amazonaws.com/code-search-net/CodeSearchNet/v2/java.zip'
+    unzip java.zip
+    python notebooks/codesearchnet-opennmt.py \
+        --data_dir='java/final/jsonl/valid' \
+        --newline='\\n'
+"""
 from argparse import ArgumentParser, Namespace
 import logging
 from pathlib import Path
@@ -5,22 +16,13 @@ from time import time
 from typing import List, Tuple
 
 import pandas as pd
-from torch.utils.data import Dataset
 
 
 logging.basicConfig(level=logging.INFO)
 
 
-class CodeSearchNetRAM(Dataset):
-    """Stores one split of CodeSearchNet data in memory
-
-    Usage example:
-        wget 'https://s3.amazonaws.com/code-search-net/CodeSearchNet/v2/java.zip'
-        unzip java.zip
-        python notebooks/codesearchnet-opennmt.py \
-            --data_dir='java/final/jsonl/valid' \
-            --newline='\\n'
-    """
+class CodeSearchNetRAM(object):
+    """Stores one split of CodeSearchNet data in memory"""
 
     def __init__(self, split_path: Path, newline_repl: str):
         super().__init__()
@@ -79,8 +81,12 @@ def main(args: Namespace) -> None:
         for fn_name, fn_body in dataset:
             if not fn_name or not fn_body:
                 continue
-            print(fn_body, file=s)
-            print(fn_name if args.word_level_targets else " ".join(fn_name), file=t)
+            tgt = fn_name if args.word_level_targets else " ".join(fn_name)
+            if args.print:
+                print(f"'{fn_name[:40]:40}' - '{tgt[:40]:40}'")
+            else:
+                print(fn_body, file=s)
+                print(tgt, file=t)
 
 
 if __name__ == "__main__":
@@ -108,6 +114,10 @@ if __name__ == "__main__":
 
     parser.add_argument(
         "--tgt_file", type=str, default="tgt-%s.txt", help="File with function texts"
+    )
+
+    parser.add_argument(
+        "--print", action="store_true", help="Print data preview to the STDOUT"
     )
 
     args = parser.parse_args()

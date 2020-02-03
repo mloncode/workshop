@@ -6,7 +6,7 @@ Usage example:
     wget 'https://s3.amazonaws.com/code-search-net/CodeSearchNet/v2/java.zip'
     unzip java.zip
     python notebooks/codesearchnet-opennmt.py \
-        --data_dir='java/final/jsonl/valid' \
+        --data-dir='java/final/jsonl/valid' \
         --newline='\\n'
 """
 from argparse import ArgumentParser, Namespace
@@ -20,8 +20,13 @@ import pandas as pd
 
 logging.basicConfig(level=logging.INFO)
 
+# catch SIGPIPE to make it nix CLI friendly e.g. | head
+from signal import signal, SIGPIPE, SIG_DFL
 
-class CodeSearchNetRAM(object):
+signal(SIGPIPE, SIG_DFL)
+
+
+class CodeSearchNetRAM:
     """Stores one split of CodeSearchNet data in memory"""
 
     def __init__(self, split_path: Path, newline_repl: str):
@@ -64,13 +69,10 @@ class CodeSearchNetRAM(object):
 
         # drop fn signature
         code = row["code"]
-        fn_body = (
-            code[
-                code.find("{", code.find(fn_name) + len(fn_name)) + 1 : code.rfind("}")
-            ]
-            .lstrip()
-            .rstrip()
-        )
+        fn_body = code[
+            code.find("{", code.find(fn_name) + len(fn_name)) + 1 : code.rfind("}")
+        ]
+        fn_body = fn_body.strip()
         fn_body = fn_body.replace("\n", self.newline_repl)
         # fn_body_enc = self.enc.encode(fn_body)
 
@@ -111,9 +113,7 @@ if __name__ == "__main__":
         help="Path to the unziped input data (CodeSearchNet)",
     )
 
-    parser.add_argument(
-        "--newline", type=str, default="\\n", help="Replace newline with this"
-    )
+    parser.add_argument("--newline", default="\\n", help="Replace newline with this")
 
     parser.add_argument(
         "--token-level-sources",
@@ -128,14 +128,11 @@ if __name__ == "__main__":
     )
 
     parser.add_argument(
-        "--src_file",
-        type=str,
-        default="src-%s.token",
-        help="File with function bodies",
+        "--src-file", default="src-%s.token", help="File with function bodies",
     )
 
     parser.add_argument(
-        "--tgt_file", type=str, default="tgt-%s.token", help="File with function texts"
+        "--tgt-file", default="tgt-%s.token", help="File with function texts"
     )
 
     parser.add_argument(

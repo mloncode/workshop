@@ -203,11 +203,11 @@ if __name__ == "__main__":
     )
 
     parser.add_argument(
-        "--src-file", default="src-%s.token", help="File with function bodies",
+        "--src-file", default="src-%s.txt", help="File with function bodies",
     )
 
     parser.add_argument(
-        "--tgt-file", default="tgt-%s.token", help="File with function texts"
+        "--tgt-file", default="tgt-%s.txt", help="File with function texts"
     )
 
     parser.add_argument(

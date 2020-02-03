@@ -176,7 +176,7 @@ def main(args: Namespace) -> None:
 if __name__ == "__main__":
     parser = ArgumentParser(add_help=False)
     parser.add_argument(
-        "--data_dir",
+        "--data-dir",
         type=str,
         default="java/final/jsonl/test",
         help="Path to the unziped input data (CodeSearchNet)",

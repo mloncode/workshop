@@ -78,7 +78,13 @@ class CodeSearchNetRAM:
 
         tokens = row["code_tokens"]
         body_tokens = tokens[tokens.index(fn_name) + 2 :]
-        fn_body_tokens = body_tokens[body_tokens.index("{") + 1 : len(body_tokens) - 1]
+        try:
+            fn_body_tokens = body_tokens[
+                body_tokens.index("{") + 1 : len(body_tokens) - 1
+            ]
+        except ValueError as ve:  # '{' might be missing
+            logging.error("'%s' fn body extraction failed: %s", body_tokens, ve)
+            fn_body_tokens = None
 
         return (fn_name, fn_body, fn_body_tokens)
 
@@ -90,6 +96,7 @@ class CodeSearchNetRAM:
 # https://github.com/microsoft/dpu-utils/blob/dfc44e354b57a4e2617828bdf4d76c1c4d81c021/python/dpu_utils/codeutils/identifiersplitting.py
 from functools import lru_cache
 from typing import List
+
 
 def split_camelcase(camel_case_identifier: str) -> List[str]:
     """
@@ -158,7 +165,13 @@ def main(args: Namespace) -> None:
         for fn_name, fn_body, fn_body_tokens in dataset:
             if not fn_name or not fn_body:
                 continue
-            src = " ".join(fn_body_tokens) if args.token_level_sources else fn_body
+
+            if args.token_level_sources:
+                if not fn_body_tokens:
+                    continue
+                src = " ".join(fn_body_tokens).replace("\n", args.newline)
+            else:
+                src = fn_body
 
             if args.word_level_targets:
                 tgt = fn_name
